@@ -24,7 +24,7 @@ def q1():
 
 def q2():
     """Los artículos que no tienen categoría asignada."""
-    raise NotImplementedError
+    return Post.objects.filter(category__isnull=True)
 
 
 def q3():
