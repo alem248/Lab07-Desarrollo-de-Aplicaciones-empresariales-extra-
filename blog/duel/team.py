@@ -64,4 +64,4 @@ def q7():
 
 def q8():
     """Los autores que nunca han publicado un artículo."""
-    raise NotImplementedError
+    return Author.objects.exclude(posts__published=True)
