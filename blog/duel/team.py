@@ -36,7 +36,7 @@ def q3():
 
 def q4():
     """Los artículos con más de dos comentarios."""
-    raise NotImplementedError
+    return Post.objects.annotate(n_comments=Count("comments")).filter(n_comments__gt=2)
 
 
 def q5():
