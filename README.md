@@ -7,6 +7,23 @@ se aprende a verificar lo que un modelo produce.
 
 La guía del laboratorio (con su rúbrica) está en el campus virtual; aquí está el código.
 
+## Documentación del laboratorio
+
+La guía de trabajo, las trazas y las conclusiones
+están en `docs/`:
+
+| Documento | Contenido |
+|---|---|
+| [`docs/01-entorno.md`](docs/01-entorno.md) | Paso 1: entorno, migraciones, siembra y conteos |
+| [`docs/02-modelos.md`](docs/02-modelos.md) | Paso 2: esquema relacional y diagrama conceptual |
+| [`docs/05-auditoria-ia.md`](docs/05-auditoria-ia.md) | Paso 5: respuestas de la IA, SQL y clasificación de fallos |
+| [`docs/06-rendimiento-n1.md`](docs/06-rendimiento-n1.md) | Paso 6: traza roja y diagnóstico del N+1 |
+| [`docs/07-optimizacion.md`](docs/07-optimizacion.md) | Paso 7: tabla comparativa y tiempos |
+| [`docs/08-seguridad-agente.md`](docs/08-seguridad-agente.md) | Paso 8: intenciones y protección contra inyección de prompts |
+| [`docs/09-concurrencia-aprobacion.md`](docs/09-concurrencia-aprobacion.md) | Paso 9: aprobación con hash y concurrencia |
+| [`docs/10-informe-final.md`](docs/10-informe-final.md) | Paso 10: tabla de uso de IA y conclusiones |
+| [`docs/evidencia/`](docs/evidencia/) | Trazas crudas de las pruebas |
+
 ## Puesta en marcha
 
 ```bash
