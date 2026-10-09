@@ -204,3 +204,31 @@ exigen semanticidad (bordes inclusivos, agregados sobre dos
 colecciones, navegación por OneToOne, negación existencial) o
 eficiencia. Ninguna de sus respuestas debe aceptarse sin el
 oráculo determinista del duelo.
+
+## Segunda ronda de la IA (`--source fresh`)
+
+El equipo también registró una **segunda petición** al
+asistente (las mismas ocho preguntas, con solo
+`blog/models.py` como contexto), conservada en
+`blog/duel/fresh_answers.py`:
+
+```console
+$ .venv\Scripts\python.exe manage.py duel --source fresh
+
+Duelo — respuestas de: fresh
+q1  [OK] correcta   1 consulta(s)   ...
+... (las ocho)
+q8  [OK] correcta   1 consulta(s)   ...
+
+8 de 8 correctas y baratas.
+```
+
+La segunda ronda acierta las ocho (usa `__range`,
+`Count(..., distinct=True)`, `author__profile__country` y
+`Count("posts", filter=Q(posts__published=True))`).
+**Advertencia metodológica** que figura en el propio módulo:
+esa muestra *no* es independiente, porque el asistente ya
+había respondido las ocho preguntas en la misma sesión; la
+muestra fría e independiente es `ai_answers.py`. La lección
+se mantiene: sin verificación no hay forma de saber cuál de
+las dos rondas era la buena.

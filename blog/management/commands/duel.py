@@ -8,13 +8,14 @@ class Command(BaseCommand):
     help = "Corre las ocho preguntas del duelo contra tus respuestas (o las de la IA)."
 
     def _allow_unicode_output(self):
-        """Let the console print the ✔/✘ marks and the question text.
+        """Print any text safely on any console.
 
-        A Windows console defaults to cp1252, where the marks of
-        `STATUS_LABEL` (and the `└─` detail line) cannot be encoded, and this
-        command dies with `UnicodeEncodeError` before printing anything. The
-        stream can be reconfigured in place (Python 3.7+); the `StringIO`
-        that tests pass has no `reconfigure` and is left untouched.
+        The status markers are ASCII and the question text is
+        cp1252-safe, but a Windows console defaults to cp1252 and
+        any other non-ASCII character would kill the command with
+        `UnicodeEncodeError`. The stream is reconfigured in place
+        (Python 3.7+); the `StringIO` that tests pass has no
+        `reconfigure` and is left untouched.
         """
         stream = self.stdout._out
         reconfigure = getattr(stream, "reconfigure", None)
