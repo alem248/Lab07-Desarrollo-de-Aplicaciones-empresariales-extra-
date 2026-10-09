@@ -15,12 +15,14 @@ SOURCES = {
     "solutions": "teacher.solutions",
 }
 
+# ASCII-safe markers: the default Windows console (cp1252) cannot
+# encode symbols like check marks, and the lab must run everywhere.
 STATUS_LABEL = {
-    "ok": "✔ correcta",
-    "costly": "⚠ correcta pero cara",
-    "wrong": "✘ resultado distinto",
-    "error": "✘ error",
-    "todo": "· sin escribir",
+    "ok": "[OK] correcta",
+    "costly": "[~] correcta pero cara",
+    "wrong": "[X] resultado distinto",
+    "error": "[X] error",
+    "todo": "[-] sin escribir",
 }
 
 

@@ -30,7 +30,7 @@ class Command(BaseCommand):
                 f"{question.text[:60]}"
             )
             if verdict.detail:
-                self.stdout.write(f"      └─ {verdict.detail}")
+                self.stdout.write(f"      -> {verdict.detail}")
 
         good = sum(1 for verdict in verdicts if verdict.status == "ok")
         self.stdout.write(f"\n{good} de {len(verdicts)} correctas y baratas.\n")
