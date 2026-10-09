@@ -42,7 +42,14 @@ def q4():
 def q5():
     """Los tres artículos publicados con más comentarios; de cada uno, cuántos comentarios
     (`n_comments`) y cuántas etiquetas (`n_tags`)."""
-    raise NotImplementedError
+    return (
+        Post.objects.filter(published=True)
+        .annotate(
+            n_comments=Count("comments", distinct=True),
+            n_tags=Count("tags", distinct=True),
+        )
+        .order_by("-n_comments")[:3]
+    )
 
 
 def q6():
