@@ -424,6 +424,49 @@ creada con mensajes de commit en inglés. Se integró con
 ambas tocaban lo mismo se conserva la versión verificada en esta entrega.
 Antes del merge se dejó la rama local `respaldo-trabajo-local`.
 
+---
+
+## Diseño de la portada
+
+Hoja de estilos en `blog/static/blog/styles.css`, enlazada desde la plantilla con
+`{% load static %}` y `{% static 'blog/styles.css' %}`. Paleta del enunciado, definida
+como variables CSS para poder ajustarla toda de una vez:
+
+| Color | Hex | Dónde se usa |
+|---|---|---|
+| Azul oscuro | `#205A70` | franja de cabecera, nombre del autor, texto base |
+| Coral | `#E85D4C` | borde inferior de la cabecera, enlaces al pasar el ratón, primera barra de la tarjeta |
+| Albaricoque claro | `#F7D9B4` | textos de la cabecera, barra central de la tarjeta, chip de «sin etiquetas» |
+| Verde claro | `#B4CE9A` | chips de etiquetas, barra final de la tarjeta, «kicker» de la cabecera |
+| Verde medio | `#3B8C7D` | títulos de los artículos y de la sección |
+| (derivados) | `#FDFAF5` fondo, `#EADFCE` bordes | lienzo y separaciones |
+
+Decisiones que responden a lo que pide la página: los artículos van en una rejilla
+`auto-fill` (1 columna en móvil, 2-3 en pantalla ancha) porque son fichas
+independientes; el autor y la fecha van en la misma línea, separados por `·`, como
+venía en la plantilla; las etiquetas van como chips redondeados para que no ocupen
+más que el texto que tienen. La barra de tres colores (coral · albaricoque · verde)
+encabeza cada tarjeta y hace de firma visual. La paleta se concentra en la cabecera
+y los acentos, y el contenido se mantiene sobre blanco, para que la lectura no se
+resienta.
+
+**Arreglo que hizo falta para que el CSS se sirviera:** `config/settings.py` traía
+`STATIC_URL = "static/"`, sin barra inicial. Con ese valor `urlparse()` da el path
+`"static/"`, y el gestor de estáticos de `runserver` compara el path de la petición
+(`/static/…`) con `startswith("static/")`: nunca coincide, así que `/static/blog/styles.css`
+devolvía **404** y la página se veía sin estilos. Se cambió al valor canónico
+`STATIC_URL = "/static/"`; el CSS ahora se sirve con HTTP 200 y `text/css`. No había
+ninguna prueba que lo detectase, porque las pruebas no piden estáticos.
+
+---
+
+## Entrega en el repositorio
+
+El entregable del campus virtual es este fichero (`ENTREGA.md`). El proyecto completo
+(las ocho consultas, el arreglo del N+1, la pasarela de acciones, la entrega y el
+diseño) está en
+<https://github.com/alem248/Lab07-Desarrollo-de-Aplicaciones-empresariales-extra-.git>.
+
 ## Estado final
 
 ```bash
@@ -431,7 +474,15 @@ python manage.py test                # Ran 24 tests — OK (skipped=2)
 python manage.py duel                # 8 de 8 correctas y baratas (1 consulta cada una)
 python manage.py duel --source ai    # 3 de 8 (3 ✘ distinta, 1 ⚠ cara, 1 ✘ error)
 python manage.py duel --source fresh # 8 de 8
+python manage.py runserver           # http://127.0.0.1:8000/ con la portada estilada
 ```
 
-Entregable al campus virtual: este fichero (`ENTREGA.md`).
-El proyecto completo está en el repositorio del equipo.
+Resumen de los cambios que hubo que hacer al proyecto recibido:
+
+1. `duel` reventaba en Windows (`UnicodeEncodeError` con las marcas `✔`/`✘` en una
+   consola cp1252) → reconfigura su salida a UTF-8.
+2. `test_the_starter_has_nothing_written` exigía `team.py` sin escribir, así que
+   responder la Parte 1 lo ponía en rojo → ahora lee `{"ok"}`.
+3. `STATIC_URL = "static/"` sin barra hacía que `runserver` devolviera 404 en
+   `/static/…` → `"/static/"`.
+4. Se recuperó la línea `venv/` del `.gitignore` que traía el remoto.
