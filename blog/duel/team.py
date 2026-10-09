@@ -10,16 +10,16 @@ filter. Check yourself with:
 Question 5 asks for two numbers per post: annotate them as `n_comments` and
 `n_tags`.
 """
-from datetime import date  # noqa: F401  (you will need it in question 3)
+from datetime import date
 
-from django.db.models import Count, Q  # noqa: F401
+from django.db.models import Count
 
-from blog.models import Author, Category, Comment, Post, Profile, Tag  # noqa: F401
+from blog.models import Author, Comment, Post
 
 
 def q1():
     """Los artículos que ya están publicados."""
-    raise NotImplementedError
+    return Post.objects.filter(published=True)
 
 
 def q2():
