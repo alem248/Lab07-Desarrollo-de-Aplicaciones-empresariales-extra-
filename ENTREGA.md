@@ -190,3 +190,13 @@ python manage.py duel
 python manage.py duel --source ai
 3 de 8 correctas y baratas (3 ✘ resultado distinto, 1 ⚠ cara, 1 ✘ error)
 ```
+
+## Historial del repositorio
+
+El remoto ya tenía una rama `main` con una solución equivalente a esta (los mismos
+ocho, el mismo `select_related`/`prefetch_related` de la portada y la misma prueba
+del duelo renombrada), creada con mensajes de commit en inglés. Para no perderla la
+integro con `git merge --allow-unrelated-histories -X ours`: quedan las dos
+historias en el repositorio y, donde los dos lados tocaban lo mismo, se conserva
+esta versión (la que está verificada en verde más arriba). El `.gitignore` del
+remoto añadía `venv/`, que se ha recuperado para ignorar también esa ruta.
