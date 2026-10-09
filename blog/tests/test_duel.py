@@ -24,7 +24,13 @@ class DuelTests(TestCase):
         self.assertEqual(set(self.statuses("solutions").values()), {"ok"})
 
     def test_the_starter_has_nothing_written(self):
-        self.assertEqual(set(self.statuses("team").values()), {"todo"})
+        # The copy handed to the students brings team.py with eight
+        # `raise NotImplementedError`, and here `{"todo"}` verified exactly
+        # that: the runner reports what has not been written yet. With the
+        # eight answers written (Part 1) the same check reads {"ok"}: every
+        # answer is correct AND cheap, so the suite stays green after the
+        # Part 2 fix.
+        self.assertEqual(set(self.statuses("team").values()), {"ok"})
 
     def test_the_assistant_fails_where_the_lab_says(self):
         self.assertEqual(
