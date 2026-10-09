@@ -29,7 +29,9 @@ def q2():
 
 def q3():
     """Los artículos publicados entre el 1 de marzo y el 31 de mayo de 2026, ambos días incluidos."""
-    raise NotImplementedError
+    return Post.objects.filter(
+        published_at__range=(date(2026, 3, 1), date(2026, 5, 31))
+    )
 
 
 def q4():
