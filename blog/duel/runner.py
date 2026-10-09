@@ -13,6 +13,9 @@ SOURCES = {
     "team": "blog.duel.team",
     "ai": "blog.duel.ai_answers",
     "solutions": "teacher.solutions",
+    # "fresh" is the second round of answers asked to an assistant (step 8 of
+    # the lab): `python manage.py duel --source fresh`
+    "fresh": "blog.duel.fresh_answers",
 }
 
 # ASCII-safe markers: the default Windows console (cp1252) cannot

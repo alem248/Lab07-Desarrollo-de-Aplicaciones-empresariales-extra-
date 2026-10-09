@@ -7,6 +7,20 @@ from blog.duel.runner import SOURCES, STATUS_LABEL, run_all
 class Command(BaseCommand):
     help = "Corre las ocho preguntas del duelo contra tus respuestas (o las de la IA)."
 
+    def _allow_unicode_output(self):
+        """Let the console print the ✔/✘ marks and the question text.
+
+        A Windows console defaults to cp1252, where the marks of
+        `STATUS_LABEL` (and the `└─` detail line) cannot be encoded, and this
+        command dies with `UnicodeEncodeError` before printing anything. The
+        stream can be reconfigured in place (Python 3.7+); the `StringIO`
+        that tests pass has no `reconfigure` and is left untouched.
+        """
+        stream = self.stdout._out
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8", errors="replace")
+
     def add_arguments(self, parser):
         parser.add_argument("--source", choices=sorted(SOURCES), default="team",
                             help="de quién son las respuestas (por defecto: team = las tuyas)")
@@ -16,6 +30,7 @@ class Command(BaseCommand):
                             help="terminar con error si alguna no es correcta")
 
     def handle(self, *args, **options):
+        self._allow_unicode_output()
         try:
             verdicts = run_all(options["source"], options["question"])
         except ModuleNotFoundError as exc:
